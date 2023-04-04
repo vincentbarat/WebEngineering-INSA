@@ -64,14 +64,14 @@ Les attributs `id` sont les identifiants uniques des objets.
 
 - Vérifier que Maven est installé (Maven 3) : `mvn -v`
 
-- Avoir Swagger editor en local : https://github.com/swagger-api/swagger-editor<br/>
-Le plus simple est d'installer docker et de lancer les commandes suivantes (mettre un `sudo` devant chaque commande au besoin) :
+- Vous devriez pouvoir utiliser l'instance de Swagger Editor en ligne : https://editor.swagger.io<br/>
+Vous pouvez aussi installer Swagger Editor sur votre machine : https://github.com/swagger-api/swagger-editor<br/>
+Pour cela, le plus simple est d'installer docker et de lancer les commandes suivantes (mettre un `sudo` devant chaque commande au besoin) :
 ```
 docker pull swaggerapi/swagger-editor
 docker run -d -p 1024:8080 swaggerapi/swagger-editor
 ```
 et dans votre navigateur aller sur la page http://localhost:1024.
-Si vous n'y arrivez pas vous pouvez utiliser le Swagger Editor en ligne (https://editor.swagger.io) mais vous ne pourrez alors pas exécuter vos commandes REST (il faudra alors télécharger et utiliser Postman ce qui complique le TP).<br/>
 À tout moment vous pouvez retrouver votre instance docker Swagger avec `docker ps -a`. La première colonne affichée vous indique l'ID de l'instance. Vous pouvez la stopper ou la redémarrer (à chaque début de TP) avec `docker start <id>` et `docker stop <id>`
 
 
@@ -92,7 +92,7 @@ Avec VSCode, faites *Ouvrir un dossier*.
 
 Lancer le back-end en allant dans `Application.java` et en lançant le `main`.
 
-- Sur `http://localhost:1024`, supprimer le contenu afficher et ajouter simplement :
+- Dans Swagger Editor (https://editor.swagger.io ou `http://localhost:1024` si vous utilisez une version sur votre machine), supprimer le contenu afficher et ajouter simplement :
 ```yaml
 openapi: 3.0.3
 info:
@@ -156,7 +156,7 @@ Tester que la commande ne fonctionne pas.
 
 ## Q1.4 Get Spring
 
-- Codez cette requête dans votre contrôleur REST (il faudra redémarrer le back-end). L'instance retournée sera `new Todo(1, "A title", "desc", List.of(Category.ENTERTAINMENT, Category.WORK), "foo")`
+- Codez cette requête dans votre contrôleur REST (il faudra redémarrer le back-end). L'instance retournée sera `new Todo(1, "A title", "desc", List.of(Category.ENTERTAINMENT, Category.WORK), null, "foo")`
 - Tester à nouveau dans Swagger Editor. Vous pouvez voir que le format du JSON reçu ne correspond pas à celui attendu (celui défini dans Swagger Editor). Nous verrons cela plus tard avec les DTO.
 - Tester dans le navigateur
 
