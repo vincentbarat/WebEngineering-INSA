@@ -20,12 +20,12 @@ public class TodoControllerV1 {
         return "Hello";
     }
 
-    @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Todo get(@PathVariable String id) {
+    @GetMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Todo get() {
         return new Todo(1, "A title", "desc", List.of(Category.ENTERTAINMENT, Category.WORK), null, "foo");
     }
 
-    @PostMapping()
+    @PostMapping(path = "todo")
     public void post(@RequestBody Todo todo) {
         System.out.println(todo);
     }
