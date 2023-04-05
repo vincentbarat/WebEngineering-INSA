@@ -6,7 +6,6 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:8080/api/v1
-
 tags: # Some annotations used to document the route descriptions (optional)
   - name: todo
     description: Les todos
@@ -31,7 +30,7 @@ paths:
                 $ref: '#/components/schemas/Todo'
     post:
       tags:
-        - tod
+        - todo
       requestBody:
         content:
           application/json:
@@ -41,6 +40,23 @@ paths:
       responses:
         '200':
           description: c'est bon
+  /public/todo/todo/{id}:
+    delete:
+      tags:
+        - todo
+      parameters:
+        - name: id
+          in: path
+          description: The identifier of the todo to delete
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
 components:
   schemas:
     Todo:
