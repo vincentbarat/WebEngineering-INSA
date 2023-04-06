@@ -1,5 +1,7 @@
 package web.controller;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,8 @@ import java.util.Map;
 @CrossOrigin
 public class TodoControllerV1 {
 
-    private int cpt;
-    private Map<Integer, Todo> todos = new HashMap<>();
+    private long cpt;
+    private final Map<Long, Todo> todos = new HashMap<>();
 
     public TodoControllerV1() {
     }
@@ -33,7 +35,7 @@ public class TodoControllerV1 {
     }
 
     @PostMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Todo post(@RequestBody Todo todo) {
+    public Todo post(@RequestBody final Todo todo) {
         todo.setId(cpt);
         todos.put(cpt, todo);
         cpt++;
@@ -41,10 +43,47 @@ public class TodoControllerV1 {
         return todo;
     }
 
+    @PutMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Todo put(@RequestBody final Todo todo) {
+        if (todos.get(todo.getId()) == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        todos.put(todo.getId(), todo);
+        System.out.println(todos);
+        return todo;
+    }
+
+    @PatchMapping(path = "bof/todo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Todo patch(@RequestBody final Todo patch) {
+        Todo todo = todos.get(patch.getId());
+        if (todo == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+//        if (patch.getList() != null)
+//            todo.setList(patch.getList());
+//        if (patch.getTitle() != null)
+//            todo.setTitle(patch.getTitle());
+//        if (patch.getOwner() != null)
+//            todo.setOwner(patch.getOwner());
+//        if (patch.getDescription() != null)
+//            todo.setDescription(patch.getDescription());
+//        if (patch.getCategories() != null)
+//            todo.setCategories(patch.getCategories());
+        try {
+            BeanUtils.copyProperties(patch, todo, Todo.class);
+        }
+        catch (final BeansException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not possible", ex);
+        }
+
+        System.out.println(todos);
+        return todo;
+    }
+
     @DeleteMapping(path = "todo/{id}")
-    public void deleteTodo(@PathVariable("id") Integer id) {
+    public void deleteTodo(@PathVariable("id") final long id) {
         if (todos.get(id) == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         todos.remove(id);
+        System.out.println(todos);
     }
 }
