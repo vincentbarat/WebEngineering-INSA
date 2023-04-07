@@ -16,14 +16,14 @@ paths:
         - todo
       responses:
         '200':
-          description: c'est bon
+          description: Success
   /public/todo/todo:
     get:
       tags:
         - todo
       responses:
         '200':
-          description: c'est bon
+          description: Success
           content:
             application/json:
               schema:
@@ -39,7 +39,7 @@ paths:
         required: true
       responses:
         '200':
-          description: c'est bon
+          description: Success
     put:
       tags:
         - todo
@@ -51,7 +51,9 @@ paths:
         required: true
       responses:
         '200':
-          description: c'est bon
+          description: Success
+        '400':
+          description: Invalid ID supplied
   /public/todo/bof/todo:
     patch:
       tags:
@@ -64,7 +66,9 @@ paths:
         required: true
       responses:
         '200':
-          description: c'est bon
+          description: Success
+        '400':
+          description: Invalid ID supplied
   /public/todo/todo/{id}:
     delete:
       tags:
