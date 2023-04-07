@@ -40,6 +40,31 @@ paths:
       responses:
         '200':
           description: c'est bon
+    put:
+      tags:
+        - todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+        required: true
+      responses:
+        '200':
+          description: c'est bon
+  /public/todo/bof/todo:
+    patch:
+      tags:
+        - todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+        required: true
+      responses:
+        '200':
+          description: c'est bon
   /public/todo/todo/{id}:
     delete:
       tags:
