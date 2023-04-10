@@ -1,6 +1,7 @@
 package web.service;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.model.Todo;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class TodoListService {
+public class TodoService {
 
     private long cpt;
     private final Map<Long, Todo> todos = new HashMap<>();

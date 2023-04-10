@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import web.model.Category;
 import web.model.Todo;
-import web.service.TodoListService;
+import web.service.TodoService;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class TodoControllerV2 {
 
     @Autowired
-    TodoListService todoListService;
+    TodoService todoService;
 
     @GetMapping(path = "hello", produces = MediaType.TEXT_PLAIN_VALUE)
     public String hello() {
@@ -31,20 +31,20 @@ public class TodoControllerV2 {
 
     @PostMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo post(@RequestBody final Todo todo) {
-        todoListService.addTodo(todo);
+        todoService.addTodo(todo);
         return todo;
     }
 
     @PutMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo put(@RequestBody final Todo todo) {
-        if (!todoListService.replaceTodo(todo))
+        if (!todoService.replaceTodo(todo))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return todo;
     }
 
     @PatchMapping(path = "bof/todo", produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo patch(@RequestBody final Todo patch) {
-        Todo modifiedTodo = todoListService.modifyTodo(patch);
+        Todo modifiedTodo = todoService.modifyTodo(patch);
         if (modifiedTodo == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return modifiedTodo;
@@ -52,7 +52,7 @@ public class TodoControllerV2 {
 
     @DeleteMapping(path = "todo/{id}")
     public void deleteTodo(@PathVariable("id") final long id) {
-        if (!todoListService.removeTodo(id))
+        if (!todoService.removeTodo(id))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 }

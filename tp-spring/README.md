@@ -247,31 +247,26 @@ Nous travaillerons sur ce nouveau contrôleur avec cette nouvelle URI.
 
 ## Q3.2 Service
 
-- Créez un service `TodoListService` et ajoutez un attribut de ce type dans votre nouveau contrôleur avec `@Autowired`. Que fait cette annotation ?
+- Créez un service `TodoService` et ajoutez un attribut de ce type dans votre nouveau contrôleur avec `@Autowired`. Que fait cette annotation ?
 
-- Déplacez les attributs `cpt` et `todos` dans ce service. Cela va vous demandez de modifiez la plupart des routes de votre contrôleur délègue au service toute la logique CRUD des opérations.
+- Déplacez les attributs `cpt` et `todos` dans ce service. Cela va vous demander de modifier la plupart des routes de votre contrôleur délègue au service toute la logique CRUD des opérations.
 Votre service devrait donc avoir les méthodes suivantes :
 ```java
-	public Todo addTodo(final Todo todo) {
-	}
-  // true if newTodo corresponds to an existing todo
-	public boolean replaceTodo(final Todo newTodo) {
-	}
+public Todo addTodo(final Todo todo) {
+}
+// true if newTodo corresponds to an existing todo
+public boolean replaceTodo(final Todo newTodo) {
+}
 // true if id corresponds to an existing todo
-	public boolean removeTodo(final int id) {
-	}
-
-
-	public Todo modifyTodo(final Todo partialTodo) {
-	}
-
-
-	private Todo findTodo(final int id) {
-  }
+public boolean removeTodo(final int id) {
+}
+public Todo modifyTodo(final Todo partialTodo){
+}
+private Todo findTodo(final int id){
+}
 ```
 
-- Que se passe-t-il si je mets un attribut `@autowired TodoListService...` dans un autre contrôleur ?
-
+Que se passe-t-il si je mets un attribut `@autowired TodoService...` dans un autre contrôleur ?
 
 Quel sont les avantages d'un service par rapport à nos 2 TP précédents ?
 Nous creuserons en 4INFO ce concept d'injection de dépendances (le `@autowired`).
@@ -279,8 +274,8 @@ Nous creuserons en 4INFO ce concept d'injection de dépendances (le `@autowired`
 
 ## Q3.3 Repository
 
-Coder un service comme nous l'avons fait dans la question précédente est un peu laborieux (gestion à la main du `cpt`, structure de stockage) : les opérations CRUD sur un objet, c'est du grand classique et Spring fournit un mécanisme pour simplifier cela : les `repository`.
-Les `repository` sont injectables tout comme les services. La différence est que ces premiers ont pour but de stocker des données et faciliter leur accès. Les services offrent des méthodes pour réaliser des opérations, des calculs.
+Coder un service comme nous l'avons fait dans la question précédente est un peu laborieux (gestion à la main du `cpt`, structure de stockage) : les opérations CRUD sur un objet, c'est du grand classique et Spring fournit un mécanisme pour simplifier cela : les `Repository`.
+Les `Repository` sont injectables tout comme les services. La différence est que ces premiers ont pour but de stocker des données et faciliter leur accès. Les services offrent des méthodes pour réaliser des opérations, des calculs.
 
 - Dans le package `web.service` créez un repository CRUD pour les todo :
 
