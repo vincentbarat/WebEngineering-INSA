@@ -5,11 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import web.model.Category;
+import web.model.SpecificTodo;
 import web.model.Todo;
 import web.service.TodoService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v2/public/todo")
@@ -25,8 +23,8 @@ public class TodoControllerV2 {
     }
 
     @GetMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Todo get() {
-        return new Todo(1, "A title", "desc", List.of(Category.ENTERTAINMENT, Category.WORK), null, "foo");
+    public SpecificTodo get() {
+        return new SpecificTodo("test");
     }
 
     @PostMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)

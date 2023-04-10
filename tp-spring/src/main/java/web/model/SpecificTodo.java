@@ -1,16 +1,14 @@
 package web.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.Entity;
+import lombok.*;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString(callSuper = true)
+@Entity
 public class SpecificTodo extends Todo {
-	private String specificAttr;
+    private String specificAttr;
 }

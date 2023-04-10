@@ -1,6 +1,8 @@
 package web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -17,6 +19,11 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonSubTypes({
+	@JsonSubTypes.Type(value = SpecificTodo.class, name = "spec"),
+	@JsonSubTypes.Type(value = Todo.class, name = "todo")
+})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class Todo {
 
     @Id
