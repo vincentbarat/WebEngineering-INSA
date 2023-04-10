@@ -9,6 +9,8 @@ servers:
 tags:
   - name: todo
     description: REST operations on Todos
+  - name: todolist
+    description: REST operation on Todo lists
 paths:
   /public/todo/hello:
     get:
@@ -86,6 +88,23 @@ paths:
           description: Successful operation
         '400':
           description: Invalid ID supplied
+  /public/todolist:
+    post:
+      tags:
+        - todolist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoList'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
 components:
   schemas:
     Todo:
@@ -107,3 +126,15 @@ components:
               - LOW_PRIORITY
               - WORK
               - ENTERTAINMENT
+    TodoList:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo'
