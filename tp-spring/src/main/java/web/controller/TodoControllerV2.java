@@ -27,20 +27,26 @@ public class TodoControllerV2 {
         return new SpecificTodo("test");
     }
 
-    @PostMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "todo",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo post(@RequestBody final Todo todo) {
         todoService.addTodo(todo);
         return todo;
     }
 
-    @PutMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "todo",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo put(@RequestBody final Todo todo) {
         if (!todoService.replaceTodo(todo))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return todo;
     }
 
-    @PatchMapping(path = "bof/todo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "bof/todo",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo patch(@RequestBody final Todo patch) {
         Todo modifiedTodo = todoService.modifyTodo(patch);
         if (modifiedTodo == null)
