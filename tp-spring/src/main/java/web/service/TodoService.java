@@ -5,14 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.model.Todo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class TodoService {
 
-    private long cpt;
-    private final Map<Long, Todo> todos = new HashMap<>();
+//    private long cpt;
+//    private final Map<Long, Todo> todos = new HashMap<>();
+
+    @Autowired
+    private TodoCrudRepository repository;
 
     /**
      * Add a todo.
@@ -21,10 +23,7 @@ public class TodoService {
      * @return the added todo
      */
     public Todo addTodo(final Todo todo) {
-        todo.setId(cpt);
-        todos.put(cpt, todo);
-        cpt++;
-        System.out.println(todos);
+        repository.save(todo);
         return todo;
     }
 
@@ -35,10 +34,9 @@ public class TodoService {
      * @return true if a todo with the same key was already present
      */
     public boolean replaceTodo(final Todo newTodo) {
-        if (todos.get(newTodo.getId()) == null)
+        if (!repository.existsById(newTodo.getId()))
             return false;
-        todos.put(newTodo.getId(), newTodo);
-        System.out.println(todos);
+        repository.save(newTodo);
         return true;
     }
 
@@ -49,10 +47,9 @@ public class TodoService {
      * @return true if the todo was found and deleted
      */
     public boolean removeTodo(final long id) {
-        if (todos.get(id) == null)
+        if (!repository.existsById(id))
             return false;
-        todos.remove(id);
-        System.out.println(todos);
+        repository.deleteById(id);
         return true;
     }
 
@@ -63,11 +60,10 @@ public class TodoService {
      * @return the modified todo or null if the todo to modify cannot be found
      */
     public Todo modifyTodo(final Todo partialTodo) {
-        Todo todo = todos.get(partialTodo.getId());
-        if (todo == null)
+        Optional<Todo> todo = repository.findById(partialTodo.getId());
+        if (todo.isEmpty())
             return null;
-        BeanUtils.copyProperties(partialTodo, todo, Todo.class);
-        System.out.println(todos);
-        return todo;
+        BeanUtils.copyProperties(partialTodo, todo.get(), Todo.class);
+        return todo.get();
     }
 }
