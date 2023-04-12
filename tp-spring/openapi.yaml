@@ -37,15 +37,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Todo'
+              oneOf:
+                - $ref: '#/components/schemas/Todo'
+                - $ref: '#/components/schemas/SpecificTodo'
+              discriminator:
+                propertyName: type
+                mapping:
+                  todo: '#/components/schemas/Todo'
+                  spec: '#/components/schemas/SpecificTodo'
         required: true
       responses:
         '200':
-          description: Success
+          description: Succcess
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Todo'
+                oneOf:
+                  - $ref: '#/components/schemas/Todo'
+                  - $ref: '#/components/schemas/SpecificTodo'
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    todo: '#/components/schemas/Todo'
+                    spec: '#/components/schemas/SpecificTodo'
     put:
       tags:
         - todo
@@ -139,6 +153,13 @@ components:
               - LOW_PRIORITY
               - WORK
               - ENTERTAINMENT
+    SpecificTodo:
+      allOf:
+        - $ref: '#/components/schemas/Todo'
+        - type: object
+          properties:
+            specificAttr:
+              type: string
     TodoList:
       type: object
       properties:
