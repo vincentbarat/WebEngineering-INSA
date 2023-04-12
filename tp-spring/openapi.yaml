@@ -173,4 +173,11 @@ components:
         todos:
           type: array
           items:
-            $ref: '#/components/schemas/Todo'
+            oneOf:
+              - $ref: '#/components/schemas/Todo'
+              - $ref: '#/components/schemas/SpecificTodo'
+            discriminator:
+              propertyName: type
+              mapping:
+                todo: '#/components/schemas/Todo'
+                spec: '#/components/schemas/SpecificTodo'
