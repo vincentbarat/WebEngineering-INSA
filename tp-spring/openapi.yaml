@@ -118,6 +118,11 @@ components:
     Todo:
       type: object
       properties:
+        type:
+          type: string
+          enum:
+            - todo
+            - spec
         id:
           type: integer
           format: int64
