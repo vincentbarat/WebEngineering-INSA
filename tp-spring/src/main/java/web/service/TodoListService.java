@@ -10,9 +10,6 @@ public class TodoListService {
     @Autowired
     private TodoListCrudRepository repository;
 
-    @Autowired
-    private TodoCrudRepository todoRep;
-
     /**
      * Add a todo list.
      *
