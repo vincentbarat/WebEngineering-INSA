@@ -23,8 +23,7 @@ public class TodoService {
      * @return the added todo
      */
     public Todo addTodo(final Todo todo) {
-        repository.save(todo);
-        return todo;
+        return repository.save(todo);
     }
 
     /**
