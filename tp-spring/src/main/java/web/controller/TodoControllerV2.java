@@ -31,8 +31,7 @@ public class TodoControllerV2 {
 
     @PostMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo post(@RequestBody final Todo todo) {
-        todoService.addTodo(todo);
-        return todo;
+        return todoService.addTodo(todo);
     }
 
     @PutMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
