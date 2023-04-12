@@ -42,6 +42,10 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
     put:
       tags:
         - todo
@@ -54,6 +58,10 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
         '400':
           description: Invalid ID supplied
   /public/todo/bof/todo:
