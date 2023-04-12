@@ -147,6 +147,8 @@ components:
           format: int64
         name:
           type: string
+        owner:
+          type: string
         todos:
           type: array
           items:
