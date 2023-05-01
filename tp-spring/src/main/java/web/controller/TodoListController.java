@@ -16,6 +16,6 @@ public class TodoListController {
 
     @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public TodoList post(@RequestBody final TodoList todoList) {
-        return todoListService.addTodo(todoList);
+        return todoListService.addTodoList(todoList);
     }
 }
