@@ -16,7 +16,7 @@ public class TodoListService {
      * @param todoList Todo list to add
      * @return the added todo list
      */
-    public TodoList addTodo(final TodoList todoList) {
+    public TodoList addTodoList(final TodoList todoList) {
         return repository.save(todoList);
     }
 }
