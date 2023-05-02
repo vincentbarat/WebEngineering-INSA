@@ -401,7 +401,7 @@ Ajoutez dans Swagger Editor et dans votre nouveau contrôleur les routes REST su
 La route pour ajouter une todolist vide n'est pas optimale : pourquoi envoyer un objet todolist alors que nous n'avons besoin que de son nom ?
 Plusieurs solutions : mettre le nom dans l'URI de la requête ou embarquer un DTO contenant que le nom dans le body de la requête. Nous allons utiliser cette dernière solution.
 
-- Créez un DTO `namedDTO` contenant juste un attribut correspond à un nom. Pensez à l'annotation `@Data` de *lombok* pour générer les getters et setters.
+- Créez un DTO `NamedDTO` contenant juste un attribut correspond à un nom. Pensez à l'annotation `@Data` de *lombok* pour générer les getters et setters.
 
 - Ajoutez ce DTO dans la définition de votre Swagger Editor et modifiez la route concernée.
 
