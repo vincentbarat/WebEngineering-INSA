@@ -11,12 +11,12 @@ public class TodoListService {
     private TodoListCrudRepository repository;
 
     /**
-     * Add a todo list.
+     * Create a new todo list.
      *
-     * @param todoList Todo list to add
+     * @param name Namle of the Todo list to create
      * @return the added todo list
      */
-    public TodoList addTodoList(final TodoList todoList) {
-        return repository.save(todoList);
+    public TodoList createTodoList(final String name) {
+        return repository.save(new TodoList(name));
     }
 }

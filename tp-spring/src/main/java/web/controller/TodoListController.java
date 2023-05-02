@@ -17,6 +17,6 @@ public class TodoListController {
 
     @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public TodoList post(@RequestBody final NamedDTO namedDTO) {
-        return todoListService.addTodoList(new TodoList(namedDTO.getName()));
+        return todoListService.createTodoList(namedDTO.getName());
     }
 }
