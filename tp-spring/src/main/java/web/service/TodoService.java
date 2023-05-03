@@ -17,9 +17,6 @@ public class TodoService {
     @Autowired
     private TodoCrudRepository repository;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     /**
      * Add a todo.
      *
@@ -67,7 +64,7 @@ public class TodoService {
         if (todo == null)
             return null;
         try {
-            objectMapper.updateValue(todo, partialTodo);
+            new ObjectMapper().updateValue(todo, partialTodo);
             return repository.save(todo);
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
