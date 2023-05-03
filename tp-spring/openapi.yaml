@@ -64,10 +64,18 @@ paths:
                 $ref: '#/components/schemas/Todo'
         '400':
           description: Invalid ID supplied
-  /public/todo/bof/todo:
+  /public/todo/todo/{id}:
     patch:
       tags:
         - todo
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the todo to patch
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
@@ -79,18 +87,17 @@ paths:
           description: Success
         '400':
           description: Invalid ID supplied
-  /public/todo/todo/{id}:
     delete:
       tags:
         - todo
       parameters:
         - name: id
           in: path
-          description: The identifier of the todo to delete
+          description: Identifier of the todo to delete
           required: true
           schema:
             type: integer
-            format: int32
+            format: int64
       responses:
         '200':
           description: Successful operation

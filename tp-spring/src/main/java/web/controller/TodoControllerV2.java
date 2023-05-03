@@ -9,6 +9,8 @@ import web.model.SpecificTodo;
 import web.model.Todo;
 import web.service.TodoService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("api/v2/public/todo")
 @CrossOrigin
@@ -43,11 +45,12 @@ public class TodoControllerV2 {
         return todo;
     }
 
-    @PatchMapping(path = "bof/todo",
+    @PatchMapping(path = "todo/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Todo patch(@RequestBody final Todo patch) {
-        Todo modifiedTodo = todoService.modifyTodo(patch);
+    public Todo patch(@PathVariable final long id,
+                      @RequestBody final Map<String, Object> partialTodo) {
+        Todo modifiedTodo = todoService.modifyTodo(id, partialTodo);
         if (modifiedTodo == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return modifiedTodo;

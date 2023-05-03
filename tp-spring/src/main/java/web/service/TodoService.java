@@ -1,11 +1,12 @@
 package web.service;
 
-import org.springframework.beans.BeanUtils;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.model.Todo;
 
-import java.util.Optional;
+import java.util.Map;
 
 @Service
 public class TodoService {
@@ -15,6 +16,9 @@ public class TodoService {
 
     @Autowired
     private TodoCrudRepository repository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     /**
      * Add a todo.
@@ -58,11 +62,15 @@ public class TodoService {
      * @param partialTodo A partial todo containing the identifier of the todo to modify and the attributes to replace
      * @return the modified todo or null if the todo to modify cannot be found
      */
-    public Todo modifyTodo(final Todo partialTodo) {
-        Optional<Todo> todo = repository.findById(partialTodo.getId());
-        if (todo.isEmpty())
+    public Todo modifyTodo(final long todoId, final Map<String, Object> partialTodo) {
+        Todo todo = repository.findById(todoId).orElse(null);
+        if (todo == null)
             return null;
-        BeanUtils.copyProperties(partialTodo, todo.get(), Todo.class);
-        return todo.get();
+        try {
+            objectMapper.updateValue(todo, partialTodo);
+            return repository.save(todo);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
