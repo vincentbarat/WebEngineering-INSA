@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.model.Todo;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -69,5 +70,15 @@ public class TodoService {
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Find all todos whose title contains a given text.
+     *
+     * @param txt The text to search for
+     * @return the list of todos found
+     */
+    public List<Todo> findTodoByTitleContaining(final String txt) {
+        return repository.findByTitleContaining(txt);
     }
 }

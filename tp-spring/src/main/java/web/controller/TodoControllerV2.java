@@ -9,6 +9,7 @@ import web.model.SpecificTodo;
 import web.model.Todo;
 import web.service.TodoService;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -60,5 +61,10 @@ public class TodoControllerV2 {
     public void delete(@PathVariable("id") final long id) {
         if (!todoService.removeTodo(id))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(path = "title/{txt}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Todo> findByTitleContaining(@PathVariable("txt") final String txt) {
+        return todoService.findTodoByTitleContaining(txt);
     }
 }

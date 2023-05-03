@@ -10,7 +10,7 @@ tags:
   - name: todo
     description: REST operations on Todos
   - name: todolist
-    description: REST operation on Todo lists
+    description: REST operations on Todo lists
 paths:
   /public/todo/hello:
     get:
@@ -103,6 +103,27 @@ paths:
           description: Successful operation
         '400':
           description: Invalid ID supplied
+  /public/todo/title/{txt}:
+    get:
+      tags:
+        - todo
+      parameters:
+        - name: txt
+          in: path
+          description: Text fragment to search for in titles
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+
   /public/todolist:
     post:
       tags:
