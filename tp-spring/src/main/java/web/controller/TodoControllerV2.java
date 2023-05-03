@@ -54,7 +54,7 @@ public class TodoControllerV2 {
     }
 
     @DeleteMapping(path = "todo/{id}")
-    public void deleteTodo(@PathVariable("id") final long id) {
+    public void delete(@PathVariable("id") final long id) {
         if (!todoService.removeTodo(id))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }

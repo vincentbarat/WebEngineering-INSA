@@ -105,7 +105,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TodoList'
+              $ref: '#/components/schemas/NamedDTO'
       responses:
         '200':
           description: Success
@@ -113,6 +113,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoList'
+  /public/todolist/todo:
+    patch:
+      tags:
+        - todolist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoListIdDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+
 components:
   schemas:
     Todo:
@@ -153,3 +171,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Todo'
+    NamedDTO:
+      type: object
+      properties:
+        name:
+          type: string
+    TodoListIdDTO:
+      type: object
+      properties:
+        todoListId:
+          type: integer
+          format: int64
+        todoId:
+          type: integer
+          format: int64
