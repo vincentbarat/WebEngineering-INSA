@@ -27,12 +27,12 @@ public class TodoListService {
     /**
      * Add a todo to a todo list.
      *
-     * @param todoListId Id of the todo list
-     * @param todoId     Id of the todo to add to the todo list
+     * @param id     Id of the todo list
+     * @param todoId Id of the todo to add to the todo list
      * @return the todo list on success, null otherwise
      */
-    public TodoList addTodo(final long todoListId, final long todoId) {
-        TodoList todoList = todoListRepository.findById(todoListId).orElse(null);
+    public TodoList addTodo(final long id, final long todoId) {
+        TodoList todoList = todoListRepository.findById(id).orElse(null);
         if (todoList == null)
             return null;
         Todo todo = todoRepository.findById(todoId).orElse(null);

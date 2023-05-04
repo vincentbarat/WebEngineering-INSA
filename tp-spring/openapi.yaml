@@ -103,13 +103,14 @@ paths:
           description: Successful operation
         '400':
           description: Invalid ID supplied
-  /public/todo/title/{txt}:
+
+  /public/todo/title:
     get:
       tags:
         - todo
       parameters:
         - name: txt
-          in: path
+          in: query
           description: Text fragment to search for in titles
           required: true
           schema:
@@ -141,16 +142,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoList'
-  /public/todolist/todo:
+  /public/todolist/addtodo:
     patch:
-      tags:
-        - todolist
+      description: Add a todo into a todo list (using a DTO to provide ids)
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TodoListIdDTO'
+              $ref: '#/components/schemas/IdsDTO'
+        required: true
+      tags:
+        - todolist
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+  /public/todolist/{todoListId}/addtodo/{todoId}:
+    patch:
+      description: Add a todo into a todo list (using path variables to provide ids)
+      parameters:
+        - name: todoListId
+          in: path
+          description: Identifier of the todo list
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: todoId
+          in: path
+          description: Identifier of the todo
+          required: true
+          schema:
+            type: integer
+            format: int64
+      tags:
+        - todolist
       responses:
         '200':
           description: Success
@@ -204,7 +233,7 @@ components:
       properties:
         name:
           type: string
-    TodoListIdDTO:
+    IdsDTO:
       type: object
       properties:
         todoListId:

@@ -34,14 +34,14 @@ public class TodoControllerV2 {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo post(@RequestBody final Todo todo) {
-        return todoService.addTodo(todo);
+        return todoService.add(todo);
     }
 
     @PutMapping(path = "todo",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo put(@RequestBody final Todo todo) {
-        if (!todoService.replaceTodo(todo))
+        if (!todoService.replace(todo))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return todo;
     }
@@ -51,20 +51,20 @@ public class TodoControllerV2 {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Todo patch(@PathVariable final long id,
                       @RequestBody final Map<String, Object> partialTodo) {
-        Todo modifiedTodo = todoService.modifyTodo(id, partialTodo);
+        Todo modifiedTodo = todoService.modify(id, partialTodo);
         if (modifiedTodo == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return modifiedTodo;
     }
 
     @DeleteMapping(path = "todo/{id}")
-    public void delete(@PathVariable("id") final long id) {
-        if (!todoService.removeTodo(id))
+    public void delete(@PathVariable final long id) {
+        if (!todoService.delete(id))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(path = "title/{txt}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Todo> findByTitleContaining(@PathVariable("txt") final String txt) {
-        return todoService.findTodoByTitleContaining(txt);
+    @GetMapping(path = "title", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Todo> findByTitleContaining(@RequestParam("txt") final String txt) {
+        return todoService.findByTitleContaining(txt);
     }
 }

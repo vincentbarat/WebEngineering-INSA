@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import web.dto.NamedDTO;
-import web.dto.TodoListIdDTO;
+import web.dto.IdsDTO;
 import web.model.TodoList;
 import web.service.TodoListService;
 
@@ -23,9 +23,17 @@ public class TodoListController {
         return todoListService.create(namedDTO.getName());
     }
 
-    @PatchMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public TodoList addTodo(@RequestBody final TodoListIdDTO todoListIdDTO) {
+    @PatchMapping(path = "addtodo", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TodoList addTodoUsingDTO(@RequestBody final IdsDTO todoListIdDTO) {
         final TodoList todoList = todoListService.addTodo(todoListIdDTO.getTodoListId(), todoListIdDTO.getTodoId());
+        if (todoList == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        return todoList;
+    }
+
+    @PatchMapping(path = "{id}/addtodo/{todoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TodoList addTodoUsingPathVariables(@PathVariable final long id, @PathVariable final long todoId) {
+        final TodoList todoList = todoListService.addTodo(id, todoId);
         if (todoList == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return todoList;

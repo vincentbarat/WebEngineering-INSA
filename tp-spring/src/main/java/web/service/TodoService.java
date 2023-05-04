@@ -24,7 +24,7 @@ public class TodoService {
      * @param todo Todo to add
      * @return the added todo
      */
-    public Todo addTodo(final Todo todo) {
+    public Todo add(final Todo todo) {
         return repository.save(todo);
     }
 
@@ -34,7 +34,7 @@ public class TodoService {
      * @param newTodo New todo to insert
      * @return true if a todo with the same key was already present
      */
-    public boolean replaceTodo(final Todo newTodo) {
+    public boolean replace(final Todo newTodo) {
         if (!repository.existsById(newTodo.getId()))
             return false;
         repository.save(newTodo);
@@ -42,12 +42,12 @@ public class TodoService {
     }
 
     /**
-     * Remove a todo.
+     * Delete a todo.
      *
      * @param id Id of the todo to remove
      * @return true if the todo was found and deleted
      */
-    public boolean removeTodo(final long id) {
+    public boolean delete(final long id) {
         if (!repository.existsById(id))
             return false;
         repository.deleteById(id);
@@ -57,11 +57,12 @@ public class TodoService {
     /**
      * Modify an existing todo.
      *
-     * @param partialTodo A partial todo containing the identifier of the todo to modify and the attributes to replace
+     * @param partialTodo A map containing the set of attributes to replace
+     * @param id          Id of the todo to modify
      * @return the modified todo or null if the todo to modify cannot be found
      */
-    public Todo modifyTodo(final long todoId, final Map<String, Object> partialTodo) {
-        Todo todo = repository.findById(todoId).orElse(null);
+    public Todo modify(final long id, final Map<String, Object> partialTodo) {
+        Todo todo = repository.findById(id).orElse(null);
         if (todo == null)
             return null;
         try {
@@ -78,7 +79,7 @@ public class TodoService {
      * @param txt The text to search for
      * @return the list of todos found
      */
-    public List<Todo> findTodoByTitleContaining(final String txt) {
+    public List<Todo> findByTitleContaining(final String txt) {
         return repository.findByTitleContaining(txt);
     }
 }
