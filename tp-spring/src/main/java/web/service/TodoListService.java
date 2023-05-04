@@ -20,7 +20,7 @@ public class TodoListService {
      * @param name Name of the Todo list to create
      * @return the added todo list
      */
-    public TodoList createTodoList(final String name) {
+    public TodoList create(final String name) {
         return todoListRepository.save(new TodoList(name));
     }
 

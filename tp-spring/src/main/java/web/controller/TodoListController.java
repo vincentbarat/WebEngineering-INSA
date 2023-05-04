@@ -20,7 +20,7 @@ public class TodoListController {
 
     @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public TodoList create(@RequestBody final NamedDTO namedDTO) {
-        return todoListService.createTodoList(namedDTO.getName());
+        return todoListService.create(namedDTO.getName());
     }
 
     @PatchMapping(path = "todo", produces = MediaType.APPLICATION_JSON_VALUE)
