@@ -453,7 +453,7 @@ Nous allons voir comment créer des routes REST publiques et d'autres privées :
 - Créez un contrôleur Spring: `PublicUserController` (URI : `api/v2/public/user`).
 
 - Utilisez le code fournit dans la classe `PublicUserController` (https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PublicUserController.java)
- du projet exemple (le projet montré en cours) pour ajouter une route pour créer un nouvel utilisateur et un autre pour s'identifier.
+ du projet exemple (le projet montré en cours) pour ajouter une route pour créer un nouvel utilisateur et un autre pour s'identifier (mais supprimez la méthode `patchUser` du DTO).
 
 - Ajoutez ces deux routes dans Swagger Editor et testez. Après avoir utilisé la route pour s'identifier, regardez la console d'IntelliJ/VSCode. 
  Que voyez-vous de spécial concernant l'authentification par cookie ?
@@ -463,7 +463,7 @@ Nous allons voir comment créer des routes REST publiques et d'autres privées :
 - Créez un contrôleur Spring: `PrivateUserController` (URI : `api/v2/private/user`).
 
 - Utilisez le code fournit dans la classe `PrivateUserController` (https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PrivateUserController.java) 
- du projet exemple pour ajouter la route : 
+ du projet exemple (mais n'utilisez pas la méthode qui patch un `User` et le DTO associé) pour ajouter la route : 
 
 ```java
 	@GetMapping()
@@ -473,7 +473,6 @@ Nous allons voir comment créer des routes REST publiques et d'autres privées :
 ```
 
 Cette route retourne donc le login de l'utilisateur authentifié.
-
 
 - Pour tester cette route, il faut passer dans le cookie de la requête le paramètre `JSESSIONID`. Il n'est pas possible de faire cela via Swagger Editor (https://github.com/swagger-api/swagger-editor/issues/1951#issuecomment-466399821), donc utilisez *curl* de la manière suivante :
 `curl -X 'GET' 'http://localhost:8080/api/v2/private/user' --cookie 'JSESSIONID=BA0A4E9FA9D6FF97753D8FA7361C5C'`
