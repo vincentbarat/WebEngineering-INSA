@@ -217,7 +217,6 @@ Cette manière de faire le patch souffre de plusieurs défauts importants. Lesqu
 Lecture intéressante : https://stackoverflow.com/a/19111046/9649530
 
 
-
 ## Bilan TP2
 
 Nous avons vu les bases pour coder des routes REST réalisant des opérations CRUD sur un type d'objets (le `Todo`).
@@ -233,7 +232,6 @@ Pour l'instant le code de notre back-end a plusieurs défauts majeurs :
 ## Terminer le TP pour la séance d'après
 
 **Et sauvegarder votre openAPI de Swagger Editor !**
-
 
 
 # TP3
@@ -313,7 +311,6 @@ Cependant, le notre back-end a encore des défauts :
 - Pas de sécurité : tout le monde pour faire du CRUD sur les objets todo.
 
 
-
 # TP4
 
 ## Q4.1 Retour des routes REST
@@ -376,11 +373,10 @@ Modifiez la route `GET` `todo/todo` pour quelle retourne un objet `SpecificTodo`
 Ajoutez les annotations nécessaires pour que cela fonctionne. Cf slide 47. Il vous faudra aussi ajouter l'annotation `@Entity`.
 
 
-
-
 ## Q4.5
 
 Créez un nouveau contrôleur (URI `api/v2/public/todolist`), un nouveau service et un nouveau repository pour les `TodoList`.
+
 
 ## Q4.6
 
@@ -394,7 +390,6 @@ Ajoutez dans Swagger Editor et dans votre nouveau contrôleur les routes REST su
 
 
 # TP5
-
 
 ## 5.1 DTO
 
@@ -425,9 +420,6 @@ Nous allons modifier la requête patch todo pour la rendre de meilleure qualité
 - Ajoutez la requête REST associée dans le contrôleur Todo v2 et testez avec Swagger Editor
 
 
-
-
-
 # TP6 Test
 
 Le sujet de ce TP est simple.
@@ -439,7 +431,6 @@ En test unitaire (TU) nous testons chaque classe séparément, donc le service p
 - Complétez la classe de tests `TestTodoControllerV2`
 
 
-
 # TP7 Test
 
 À l'instar du TP6, faites de même pour `TodoList`. Il vous faudra créer les classes de tests.
@@ -448,36 +439,27 @@ Au bout d'une heure de TP, commencez le TP8.
 
 # TP8 Sécurité
 
-
-Nous allons voir comment créer des routes REST publiques et d'autres privées : pour des questions de sécurités des données il est obligatoire ede réfléchir à ce que peuvent faire les utilisateurs. Nous n’utiliserons pas les todo et todo list au début de ce TP, juste des utilisateurs.
-
-
+Nous allons voir comment créer des routes REST publiques et d'autres privées : pour des questions de sécurité des données, il est obligatoire de réfléchir à ce que peuvent faire les utilisateurs. Nous n’utiliserons pas les todo et todo list au début de ce TP, juste des utilisateurs.
 
 ## 8.1
 
-
 - Regardez le code de la classe `SecurityConfig` : que fait la ligne `new AntPathRequestMatcher("/api/v*/public/**")).permitAll()` selon vous ?
-
 
 - Dans `TodoControllerV2`, remplacez `@RequestMapping("api/v2/public/todo")` par `@RequestMapping("api/v2/private/todo")`, modifiez votre Swagger Editor. Faites de même pour `TodoListController`. Testez : que se-passe-t-il désormais ?
 
 
 ## 8.2
 
-
 - Créez un contrôleur Spring: `PublicUserController` (URI : `api/v2/public/user`).
 
 - Utilisez le code fournit dans la classe `PublicUserController` du projet exemple (le projet montré en cours) pour ajouter une route pour créer un nouvel utilisateur et un autre pour s'identifier.
 https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PublicUserController.java
 
-
 - Ajoutez ces deux routes dans Swagger Editor et testez. Après avoir utiliser la route pour s'identifier, regardez la console d'IntelliJ/VSCode. Que voyez-vous de spéciale concernant l'authentification par cookie ?
 
 ## 8.3
 
-
 - Créez un contrôleur Spring: `PrivateUserController` (URI : `api/v2/private/user`).
-
 
 - Utilisez le code fournit dans la classe `PrivateUserController` du projet exemple pour ajouter la route :
 ```java
@@ -491,7 +473,6 @@ Cette route retourne donc le login de l'utilisateur authentifié.
 
 https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PrivateUserController.java
 
-
 - Pour tester cette route, il faut passer dans le cookie de la requête le paramètre `JSESSIONID`. Il n'est pas possible de faire cela via Swagger Editor (https://github.com/swagger-api/swagger-editor/issues/1951#issuecomment-466399821), donc utilisez *curl* de la manière suivante :
 `curl -X 'GET' 'http://localhost:8080/api/v2/private/user' --cookie 'JSESSIONID=BA0A4E9FA9D6FF97753D8FA7361C5C'`
 
@@ -502,7 +483,6 @@ Il faut maintenant refaire fonctionner les routes de `TodoControllerV2`.
 
 - Une fois authentifié (il faut créer un utilisateur après chaque redémarrage du back-end), vous pouvez tester avec curl la route 'hello' en utilisant le cookie de session retourné lors de l'authentification :
 `curl -X 'GET' 'http://localhost:8080/api/v2/private/todo/hello'  --cookie 'JSESSIONID=...'`
-
 
 - Pour la route 'todo', nous voulons que le `owner` du `todo` créé soit le `login` de l'utilisateur authentifié. Pour cela, dans toutes les requêtes qui nécessiteront cette information vous devrez ajouter en paramètre de la méthode Java de la route : `Principal principal` et utilisez `principal.getName()` pour obtenir le login et l'utiliser pour le paramètre `owner` du todo. Testez avec curl :
 `curl -X 'GET' 'http://localhost:8080/api/v2/private/todo/todo'  --cookie 'JSESSIONID=...'`
@@ -518,4 +498,3 @@ Cela vous demandera de modifier votre service `TodoService` pour ajouter à diff
 ## 8.6
 
 Faites de même pour le contrôleur `TodoListController`.
-

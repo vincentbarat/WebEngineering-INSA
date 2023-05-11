@@ -15,27 +15,26 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-		http
-			.authorizeHttpRequests(req -> {
-				try {
-					req.requestMatchers(
-						// new AntPathRequestMatcher("/api/**")).permitAll()
-							new AntPathRequestMatcher("/api/v*/public/**")).permitAll()
-						.anyRequest().authenticated()
-						.and()
-						.csrf().disable();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			});
+        http.authorizeHttpRequests(req -> {
+            try {
+                req
+                        .requestMatchers(new AntPathRequestMatcher("/api/v*/public/**"))
+                        .permitAll()
+                        .anyRequest().authenticated()
+                        .and()
+                        .csrf().disable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
-		return http.build();
-	}
+        return http.build();
+    }
 
-	@Bean
-	public PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {

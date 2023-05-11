@@ -47,7 +47,7 @@ public class TestTodoControllerV2 {
 
     @Test
     void postTodo() throws Exception {
-        mvc.perform(post("/api/v2/public/todo/todo")
+        mvc.perform(post("/api/v2/private/todo/todo")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("""
                                 {

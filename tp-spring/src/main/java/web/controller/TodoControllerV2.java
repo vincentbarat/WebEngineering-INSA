@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/v2/public/todo")
+@RequestMapping("api/v2/private/todo")
 @CrossOrigin
 public class TodoControllerV2 {
 

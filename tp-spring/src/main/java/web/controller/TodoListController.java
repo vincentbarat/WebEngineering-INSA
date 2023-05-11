@@ -11,7 +11,7 @@ import web.model.TodoList;
 import web.service.TodoListService;
 
 @RestController
-@RequestMapping("api/v2/public/todolist")
+@RequestMapping("api/v2/private/todolist")
 @CrossOrigin
 public class TodoListController {
 
