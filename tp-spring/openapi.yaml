@@ -12,14 +12,14 @@ tags:
   - name: todolist
     description: REST operations on Todo lists
 paths:
-  /public/todo/hello:
+  /private/todo/hello:
     get:
       tags:
         - todo
       responses:
         '200':
           description: Success
-  /public/todo/todo:
+  /private/todo/todo:
     get:
       tags:
         - todo
@@ -64,7 +64,7 @@ paths:
                 $ref: '#/components/schemas/Todo'
         '400':
           description: Invalid ID supplied
-  /public/todo/todo/{id}:
+  /private/todo/todo/{id}:
     patch:
       tags:
         - todo
@@ -104,7 +104,7 @@ paths:
         '400':
           description: Invalid ID supplied
 
-  /public/todo/title:
+  /private/todo/title:
     get:
       tags:
         - todo
@@ -125,7 +125,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Todo'
 
-  /public/todolist:
+  /private/todolist:
     post:
       tags:
         - todolist
@@ -142,7 +142,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoList'
-  /public/todolist/addtodo:
+  /private/todolist/addtodo:
     patch:
       description: Add a todo into a todo list (using a DTO to provide ids)
       requestBody:
@@ -160,7 +160,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoList'
-  /public/todolist/{todoListId}/addtodo/{todoId}:
+  /private/todolist/{todoListId}/addtodo/{todoId}:
     patch:
       description: Add a todo into a todo list (using path variables to provide ids)
       parameters:
@@ -187,6 +187,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoList'
+  /public/user/new:
+    post:
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Success
+  /public/user/login:
+    post:
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Success
 
 components:
   schemas:
@@ -242,3 +268,10 @@ components:
         todoId:
           type: integer
           format: int64
+    UserDTO:
+      type: object
+      properties:
+        login:
+          type: string
+        pwd:
+          type: string

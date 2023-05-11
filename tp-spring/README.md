@@ -452,16 +452,19 @@ Nous allons voir comment créer des routes REST publiques et d'autres privées :
 
 - Créez un contrôleur Spring: `PublicUserController` (URI : `api/v2/public/user`).
 
-- Utilisez le code fournit dans la classe `PublicUserController` du projet exemple (le projet montré en cours) pour ajouter une route pour créer un nouvel utilisateur et un autre pour s'identifier.
-https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PublicUserController.java
+- Utilisez le code fournit dans la classe `PublicUserController` (https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PublicUserController.java)
+ du projet exemple (le projet montré en cours) pour ajouter une route pour créer un nouvel utilisateur et un autre pour s'identifier.
 
-- Ajoutez ces deux routes dans Swagger Editor et testez. Après avoir utiliser la route pour s'identifier, regardez la console d'IntelliJ/VSCode. Que voyez-vous de spéciale concernant l'authentification par cookie ?
+- Ajoutez ces deux routes dans Swagger Editor et testez. Après avoir utilisé la route pour s'identifier, regardez la console d'IntelliJ/VSCode. 
+ Que voyez-vous de spécial concernant l'authentification par cookie ?
 
 ## 8.3
 
 - Créez un contrôleur Spring: `PrivateUserController` (URI : `api/v2/private/user`).
 
-- Utilisez le code fournit dans la classe `PrivateUserController` du projet exemple pour ajouter la route :
+- Utilisez le code fournit dans la classe `PrivateUserController` (https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PrivateUserController.java) 
+ du projet exemple pour ajouter la route : 
+
 ```java
 	@GetMapping()
 	public String hello(final Principal user) {
@@ -471,7 +474,6 @@ https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/m
 
 Cette route retourne donc le login de l'utilisateur authentifié.
 
-https://github.com/arnobl/WebEngineering-INSA/blob/master/rest/springboot2/src/main/java/fr/insarennes/demo/restcontroller/PrivateUserController.java
 
 - Pour tester cette route, il faut passer dans le cookie de la requête le paramètre `JSESSIONID`. Il n'est pas possible de faire cela via Swagger Editor (https://github.com/swagger-api/swagger-editor/issues/1951#issuecomment-466399821), donc utilisez *curl* de la manière suivante :
 `curl -X 'GET' 'http://localhost:8080/api/v2/private/user' --cookie 'JSESSIONID=BA0A4E9FA9D6FF97753D8FA7361C5C'`
