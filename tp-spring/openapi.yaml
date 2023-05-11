@@ -213,6 +213,19 @@ paths:
       responses:
         '200':
           description: Success
+  /private/user:
+    get:
+      tags:
+        - user
+      security:
+        - CookieAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
 
 components:
   schemas:
@@ -275,3 +288,13 @@ components:
           type: string
         pwd:
           type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: Use email/username and password to authenticate.
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: session
+      description: Use a session cookie to authenticate (see /login).
