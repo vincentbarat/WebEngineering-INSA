@@ -492,8 +492,8 @@ Il faut maintenant refaire fonctionner les routes de `TodoControllerV2`.
 ## 8.5
 
 Faites de même pour toutes les autres routes REST du contrôleur `TodoControllerV2`.
-Attention : pour les routes *put*, *delete* et *patch* il faut vérifier que le login de l'utilisateur soit bien le `owner` des todos concernés.
-Cela vous demandera de modifier votre service `TodoService` pour ajouter à différentes méthodes le login en paramètre.
+Attention : pour les routes *put*, *delete* et *patch* il faut vérifier que le login de l'utilisateur soit bien le `owner` des todos concernés, et qu'il n'essaye pas de modifier ce champ.
+Cela vous demandera de modifier votre service `TodoService`.
 
 
 ## 8.6

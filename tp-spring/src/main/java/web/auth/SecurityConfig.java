@@ -18,11 +18,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(req -> {
             try {
                 req
-                        .requestMatchers(new AntPathRequestMatcher("/api/v*/public/**"))
-                        .permitAll()
-                        .anyRequest().authenticated()
-                        .and()
-                        .csrf().disable();
+                    .requestMatchers(new AntPathRequestMatcher("/api/v*/public/**")).permitAll()
+                    .anyRequest().authenticated()
+//                    .anyRequest().permitAll()
+                    .and().csrf().disable();
             } catch (Exception e) {
                 e.printStackTrace();
             }

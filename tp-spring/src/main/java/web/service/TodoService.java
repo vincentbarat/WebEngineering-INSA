@@ -32,7 +32,7 @@ public class TodoService {
      * Replace an existing todo by a new one.
      *
      * @param newTodo New todo to insert
-     * @return true if a todo with the same key was already present
+     * @return true if the todo was found and replaced
      */
     public boolean replace(final Todo newTodo) {
         if (!repository.existsById(newTodo.getId()))
@@ -55,11 +55,11 @@ public class TodoService {
     }
 
     /**
-     * Modify an existing todo.
+     * Modify a todo.
      *
      * @param partialTodo A map containing the set of attributes to replace
      * @param id          Id of the todo to modify
-     * @return the modified todo or null if the todo to modify cannot be found
+     * @return the modified todo or null if the todo cannot be found
      */
     public Todo modify(final long id, final Map<String, Object> partialTodo) {
         Todo todo = repository.findById(id).orElse(null);
@@ -71,6 +71,17 @@ public class TodoService {
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Check if a todo exist givne its id and owner.
+     *
+     * @param id    The id of the todo to search
+     * @param owner The owner of the todo to search
+     * @return true if the todo exists and is owned by the owner
+     */
+    public boolean existByIdAndOwner(final long id, final String owner) {
+        return repository.existsByIdAndOwner(id, owner);
     }
 
     /**

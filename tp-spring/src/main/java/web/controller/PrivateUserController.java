@@ -1,6 +1,7 @@
 package web.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class PrivateUserController {
 
     private final UserService userService;
 
-    @GetMapping()
+    @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
     public String hello(final Principal user) {
         return user.getName();
     }

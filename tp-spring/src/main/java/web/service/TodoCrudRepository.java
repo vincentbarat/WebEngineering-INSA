@@ -10,6 +10,8 @@ import java.util.List;
 public interface TodoCrudRepository extends CrudRepository<Todo, Long> {
     List<Todo> findByTitleContaining(final String title);
 
+    boolean existsByIdAndOwner(long id, String owner);
+
 //    @Query("select t from Todo t where t.title like %?1%")
 //    List<Todo> findByTitleTxt(final String titleTxt);
 }
