@@ -476,7 +476,8 @@ Cette route retourne donc le login de l'utilisateur authentifié.
 
 - Pour tester cette route, il faut passer dans le cookie de la requête le paramètre `JSESSIONID`. Il n'est pas possible de faire cela via Swagger Editor (https://github.com/swagger-api/swagger-editor/issues/1951#issuecomment-466399821), donc utilisez *curl* de la manière suivante :
 `curl -X 'GET' 'http://localhost:8080/api/v2/private/user' --cookie 'JSESSIONID=BA0A4E9FA9D6FF97753D8FA7361C5C'`
-Cependant Swagger Editor peut produire les commandes curl correctes (cliquer sur 'try it' pour voir la commande) à exécuter en console. Pour cela ajouter à la fin votre modèle OpenAPI :
+
+Cependant, Swagger Editor peut produire les commandes curl correctes (cliquer sur 'try it' pour voir la commande) à exécuter en console. Pour cela ajouter à la fin votre modèle OpenAPI :
 ```
 securitySchemes:
   CookieAuth:
@@ -484,6 +485,13 @@ securitySchemes:
     in: cookie
     name: JSESSIONID
     description: Use a session cookie to authenticate (see /login).
+```
+
+et dans chaque route nécessitant une authentification :
+
+```
+security:
+  - CookieAuth: []
 ```
 
 
