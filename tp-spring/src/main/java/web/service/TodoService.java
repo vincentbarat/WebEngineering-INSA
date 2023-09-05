@@ -68,7 +68,8 @@ public class TodoService {
         try {
             new ObjectMapper().updateValue(todo, partialTodo);
             return repository.save(todo);
-        } catch (JsonMappingException e) {
+        }
+        catch (JsonMappingException e) {
             throw new RuntimeException(e);
         }
     }

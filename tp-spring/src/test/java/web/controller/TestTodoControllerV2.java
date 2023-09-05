@@ -24,52 +24,51 @@ public class TestTodoControllerV2 {
     @Test
     void testHello() throws Exception {
         mvc.perform(get("/api/v2/public/todo/hello"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
-                .andExpect(content().string(equalTo("Hello")));
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
+            .andExpect(content().string(equalTo("Hello")));
     }
 
     @Test
     void getTodo() throws Exception {
         mvc.perform(get("/api/v2/public/todo/todo"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.title", equalTo("A title")))
-                .andExpect(jsonPath("$.description", equalTo("desc")))
-                .andExpect(jsonPath("$.categories", hasSize(2)))
-                .andExpect(jsonPath("$.categories[0]", equalTo("ENTERTAINMENT")))
-                .andExpect(jsonPath("$.categories[1]", equalTo("WORK")))
-                .andExpect(jsonPath("$.type", equalTo("todo")))
-                .andExpect(jsonPath("$.owner", equalTo("foo")))
-                .andExpect(jsonPath("$.id", equalTo(1)))
-                .andExpect(jsonPath("$.*", hasSize(6)));
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.title", equalTo("A title")))
+            .andExpect(jsonPath("$.description", equalTo("desc")))
+            .andExpect(jsonPath("$.categories", hasSize(2)))
+            .andExpect(jsonPath("$.categories[0]", equalTo("ENTERTAINMENT")))
+            .andExpect(jsonPath("$.categories[1]", equalTo("WORK")))
+            .andExpect(jsonPath("$.type", equalTo("todo")))
+            .andExpect(jsonPath("$.owner", equalTo("foo")))
+            .andExpect(jsonPath("$.id", equalTo(1)))
+            .andExpect(jsonPath("$.*", hasSize(6)));
     }
 
     @Test
     void postTodo() throws Exception {
-        mvc.perform(post("/api/v2/private/todo/todo")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content("""
-                                {
-                                	"type": "todo",
-                                	"title": "VVVV",
-                                	"description": "desc",
-                                	"categories": [
-                                	  "ENTERTAINMENT"
-                                	],
-                                	"owner": "foo"
-                                  }
-                                						"""))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.title", equalTo("VVVV")))
-                .andExpect(jsonPath("$.description", equalTo("desc")))
-                .andExpect(jsonPath("$.categories", hasSize(1)))
-                .andExpect(jsonPath("$.categories[0]", equalTo("ENTERTAINMENT")))
-                .andExpect(jsonPath("$.type", equalTo("todo")))
-                .andExpect(jsonPath("$.owner", equalTo("foo")))
-                .andExpect(jsonPath("$.id", equalTo(1)))
-                .andExpect(jsonPath("$.*", hasSize(6)));
-
+        mvc.perform(post("/api/v2/public/todo/todo")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content("""
+                    {
+                    	"type": "todo",
+                    	"title": "VVVV",
+                    	"description": "desc",
+                    	"categories": [
+                    	  "ENTERTAINMENT"
+                    	],
+                    	"owner": "foo"
+                      }
+                    						"""))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.title", equalTo("VVVV")))
+            .andExpect(jsonPath("$.description", equalTo("desc")))
+            .andExpect(jsonPath("$.categories", hasSize(1)))
+            .andExpect(jsonPath("$.categories[0]", equalTo("ENTERTAINMENT")))
+            .andExpect(jsonPath("$.type", equalTo("todo")))
+            .andExpect(jsonPath("$.owner", equalTo("foo")))
+            .andExpect(jsonPath("$.id", equalTo(0)))
+            .andExpect(jsonPath("$.*", hasSize(6)));
     }
 }

@@ -7,7 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -16,8 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonSubTypes({
-	@JsonSubTypes.Type(value = SpecificTodo.class, name = "spec"),
-	@JsonSubTypes.Type(value = Todo.class, name = "todo")
+    @JsonSubTypes.Type(value = SpecificTodo.class, name = "spec"),
+    @JsonSubTypes.Type(value = Todo.class, name = "todo")
 })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class Todo {
@@ -39,6 +41,6 @@ public class Todo {
     @Override
     public String toString() {
         return "Todo [id=" + id + ", title=" + title
-               + ", description=" + description + ", categories=" + categories + "]";
+            + ", description=" + description + ", categories=" + categories + "]";
     }
 }

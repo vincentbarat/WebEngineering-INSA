@@ -20,7 +20,8 @@ public class PublicUserController {
     public void newAccount(@RequestBody final UserDTO user) {
         try {
             userService.newAccount(user.login(), user.pwd());
-        } catch (final IllegalArgumentException ex) {
+        }
+        catch (final IllegalArgumentException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not possible");
         }
     }
@@ -33,7 +34,8 @@ public class PublicUserController {
             if (!loginSuccess) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already logged in. Log out first");
             }
-        } catch (final ServletException ex) {
+        }
+        catch (final ServletException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not possible to log in");
         }
     }

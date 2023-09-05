@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import web.dto.NamedDTO;
 import web.dto.IdsDTO;
+import web.dto.NamedDTO;
 import web.model.TodoList;
 import web.service.TodoListService;
 
